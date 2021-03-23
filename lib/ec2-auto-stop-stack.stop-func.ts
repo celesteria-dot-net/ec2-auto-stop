@@ -60,8 +60,14 @@ const postToDiscord = async (instanceIds: string[]) => {
 }
 
 export const handler = async () => {
-  const instanceIds = await fetchInstanceIds()
-  await postToDiscord(instanceIds);
-
-  if (instanceIds.length != 0) stopInstances(instanceIds);
+  try {
+    const instanceIds = await fetchInstanceIds()
+    const response = await postToDiscord(instanceIds);
+    console.log(`Webhook reponse status: ${response.status} ${response.statusText}`)
+  
+    if (instanceIds.length != 0) stopInstances(instanceIds);  
+  } catch (err) {
+    console.error("Error has occured!")
+    console.error(err)
+  }
 };
