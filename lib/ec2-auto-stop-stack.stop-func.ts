@@ -49,7 +49,7 @@ const postToDiscord = async (instanceIds: string[]) => {
         "fields": [
           {
             "name": "instance_ids",
-            "value": instanceIds.join(', ')
+            "value": (instanceIds.length == 0) ? "[]" : instanceIds.join(", ")
           }
         ],
         "timestamp": jstDateTime().toISOString()
