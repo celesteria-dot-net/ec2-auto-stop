@@ -16,13 +16,6 @@ const stopInstances = async (instanceIds: string[]) => {
 
 const postToDiscord = async (instanceIds: string[]) => {
   const webhook = process.env.WEBHOOK
-  const jstDateTime = () => {
-    const jstOffset = 9 * 60;
-    const now = new Date();
-    const offset = now.getTimezoneOffset() + jstOffset;
-    now.setTime(now.getTime() + offset * 60 * 1000);
-    return now
-  }
   const normalContent = {
     "textContent": "",
     "embedContent": "There are no running instances.",
@@ -49,10 +42,10 @@ const postToDiscord = async (instanceIds: string[]) => {
         "fields": [
           {
             "name": "instance_ids",
-            "value": instanceIds.join(', ')
+            "value": (instanceIds.length == 0) ? "[]" : instanceIds.join(", ")
           }
         ],
-        "timestamp": jstDateTime().toISOString()
+        "timestamp": new Date().toISOString()
       }
     ],
   }
@@ -67,8 +60,14 @@ const postToDiscord = async (instanceIds: string[]) => {
 }
 
 export const handler = async () => {
-  const instanceIds = await fetchInstanceIds()
-  await postToDiscord(instanceIds);
-
-  if (instanceIds.length != 0) stopInstances(instanceIds);
+  try {
+    const instanceIds = await fetchInstanceIds()
+    const response = await postToDiscord(instanceIds);
+    console.log(`Webhook reponse status: ${response.status} ${response.statusText}`)
+  
+    if (instanceIds.length != 0) stopInstances(instanceIds);  
+  } catch (err) {
+    console.error("Error has occured!")
+    console.error(err)
+  }
 };
