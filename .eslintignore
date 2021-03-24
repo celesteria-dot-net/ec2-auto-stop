@@ -2,3 +2,11 @@ cdk.out/
 **/node_modules/
 *.config.js
 .*lintrc.js
+
+# 自動生成なのでlint対象から外す
+bin/*.js
+bin/*.d.ts
+lib/*.js
+lib/*.d.ts
+test/*.js
+test/*.d.ts
