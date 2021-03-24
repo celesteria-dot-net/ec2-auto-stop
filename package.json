@@ -26,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "aws-cdk": "1.94.1",
+    "dotenv": "^8.2.0",
     "eslint": "^7.22.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.1.0",
@@ -45,7 +46,6 @@
     "@aws-cdk/aws-lambda-nodejs": "^1.94.1",
     "@aws-cdk/core": "1.94.1",
     "@aws-sdk/client-ec2": "^3.9.0",
-    "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
     "source-map-support": "^0.5.16"
   }
