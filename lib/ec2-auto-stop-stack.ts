@@ -3,7 +3,6 @@ import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { Rule, Schedule } from '@aws-cdk/aws-events';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { resolve } from 'path';
 
 // eslint-disable-next-line import/prefer-default-export
 export class Ec2AutoStopStack extends cdk.Stack {

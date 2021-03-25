@@ -12,9 +12,7 @@ describe('Ec2AutoStopStack Snapshot Test', () => {
 });
 
 describe('Ec2AutoStopStack Fine-Grained Test', () => {
-  const app = new cdk.App({
-    outdir: './cdk.out'
-  });
+  const app = new cdk.App();
   const stack = new Ec2AutoStop.Ec2AutoStopStack(app, 'Ec2AutoStopStack');
 
   test('Lambda', () => {
