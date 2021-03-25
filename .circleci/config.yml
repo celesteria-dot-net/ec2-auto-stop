@@ -47,6 +47,7 @@ jobs:
     steps:
       - checkout
       - restore_yarn
+      - setup_remote_docker
       - run:
           command: yarn test
 
@@ -56,6 +57,7 @@ jobs:
     steps:
       - checkout
       - restore_yarn
+      - setup_remote_docker
       - run:
           name: Set env
           command: |
