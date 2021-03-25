@@ -48,14 +48,14 @@ jobs:
       - checkout
       - restore_yarn
       - run:
-        command: yarn test
+          command: yarn test
 
   deploy:
     executor:
       name: default
     steps:
       - checkout
-      - restore
+      - restore_yarn
       - run:
           name: Set env
           command: |
