@@ -4,6 +4,7 @@ import {
   StopInstancesCommand,
 } from '@aws-sdk/client-ec2';
 import fetch from 'node-fetch';
+import { format } from 'date-fns';
 
 const client = new EC2Client({});
 
@@ -33,12 +34,12 @@ const postToDiscord = async (instanceIds: string[]) => {
   const webhook = process.env.WEBHOOK;
   const normalContent = {
     textContent: '',
-    embedContent: 'There are no running instances.',
+    embedContent: '実行中のインスタンスはありません。',
     color: 1127128,
   };
   const abnormalContent = {
-    textContent: '@everyone Check It Now!',
-    embedContent: 'Some instances should be stopped!',
+    textContent: '@everyone EC2に関して今すぐ確認が必要です！',
+    embedContent: 'インスタンスが実行中です。',
     color: 14177041,
   };
   const requestHeader = {
@@ -47,7 +48,7 @@ const postToDiscord = async (instanceIds: string[]) => {
   };
   const contents = instanceIds.length === 0 ? normalContent : abnormalContent;
   const requestData = {
-    content: contents.textContent,
+    content: `[${format(new Date(), 'YYYY/MM/dd HH:mm:ss')}] ${contents.textContent}`,
     embeds: [
       {
         title: 'EC2 Notifications',
