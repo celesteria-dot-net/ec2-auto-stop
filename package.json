@@ -46,6 +46,7 @@
     "@aws-cdk/aws-lambda-nodejs": "^1.94.1",
     "@aws-cdk/core": "1.94.1",
     "@aws-sdk/client-ec2": "^3.9.0",
+    "date-fns": "^2.19.0",
     "node-fetch": "^2.6.1",
     "source-map-support": "^0.5.16"
   }
