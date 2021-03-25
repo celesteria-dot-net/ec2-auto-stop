@@ -29,15 +29,9 @@ export class Ec2AutoStopStack extends cdk.Stack {
     });
 
     const stopFuncTriggers = [
-      new Rule(this, 'stop-func-schedule_1430', {
+      new Rule(this, 'stop-func-schedule', {
         schedule: Schedule.cron({
-          minute: '30',
-          hour: '14',
-        }),
-      }),
-      new Rule(this, 'stop-func-schedule_1440', {
-        schedule: Schedule.cron({
-          minute: '40',
+          minute: '30,40',
           hour: '14',
         }),
       }),
