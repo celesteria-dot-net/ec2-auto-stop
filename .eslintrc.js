@@ -61,7 +61,10 @@ module.exports = {
         ts: 'never',
       },
     ],
-    'no-secrets/no-secrets': 'error',
+    'no-secrets/no-secrets': [
+      'error',
+      { ignoreIdentifiers: ['http(s)?://([w-]+.)+[w-]+(/[w- ./?%&=]*)?'] },
+    ],
     'prefer-arrow/prefer-arrow-functions': [
       'error',
       {
