@@ -1,0 +1,87 @@
+version: 2.1
+executors:
+  default:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:12.21.0
+
+commands:
+  restore_yarn:
+    steps:
+      - restore_cache:
+          name: Restore yarn dependencies
+          key: yarn-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
+  save_yarn:
+    steps:
+      - save_cache:
+          name: Cache yarn dependencies
+          key: yarn-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules/
+
+jobs:
+  setup:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_yarn
+      - run:
+          name: Install dependencies
+          command: yarn --check-files --frozen-lockfile --non-interactive
+      - save_yarn
+
+  format_and_lint:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_yarn
+      - run:
+          command: yarn fix
+
+  test:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_yarn
+      - run:
+          command: yarn test
+
+  deploy:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_yarn
+      - run:
+          name: Set env
+          command: |
+            export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
+            export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+            export AWS_DEFAULT_REGION=us-west-2
+      - run:
+          name: Deploy to AWS
+          command: npx cdk deploy --require-approval never
+
+workflows:
+  version: 2
+  format_and_lint:
+    jobs:
+      - setup
+      - format_and_lint:
+          requires:
+            - setup
+      - test:
+          requires:
+            - setup
+      - deploy:
+          context: TOKENS
+          requires:
+            - format_and_lint
+            - test
+          filters:
+            branches:
+              only: main
