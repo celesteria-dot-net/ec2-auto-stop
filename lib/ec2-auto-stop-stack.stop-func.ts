@@ -51,7 +51,7 @@ const postToDiscord = async (instanceIds: string[]) => {
     embeds: [
       {
         title: 'EC2 Notifications',
-        link:
+        url:
           'https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:',
         description: contents.embedContent,
         color: contents.color,
