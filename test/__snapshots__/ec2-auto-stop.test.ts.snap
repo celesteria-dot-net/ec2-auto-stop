@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Generate stack 1`] = `
+exports[`Ec2AutoStopStack Snapshot Test stack 1`] = `
 Object {
   "Parameters": Object {
     "AssetParametersda3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519ArtifactHash4697F25C": Object {
@@ -167,7 +167,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "stopfuncscheduleAllowEventRuleMyTestStackstopfunc707C3B76459EF839": Object {
+    "stopfuncscheduleAllowEventRuleEc2AutoStopStackstopfunc55F42AFB39CCEFA0": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {
