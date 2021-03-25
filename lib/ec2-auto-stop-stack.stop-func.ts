@@ -4,6 +4,7 @@ import {
   StopInstancesCommand,
 } from '@aws-sdk/client-ec2';
 import fetch from 'node-fetch';
+import { format } from 'date-fns';
 
 const client = new EC2Client({});
 
@@ -47,7 +48,7 @@ const postToDiscord = async (instanceIds: string[]) => {
   };
   const contents = instanceIds.length === 0 ? normalContent : abnormalContent;
   const requestData = {
-    content: contents.textContent,
+    content: `[${format(new Date(), 'YYYY/MM/dd HH:mm:ss')}] ${contents.textContent}`,
     embeds: [
       {
         title: 'EC2 Notifications',
