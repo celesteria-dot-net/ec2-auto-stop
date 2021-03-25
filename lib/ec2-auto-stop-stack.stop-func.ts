@@ -34,12 +34,12 @@ const postToDiscord = async (instanceIds: string[]) => {
   const webhook = process.env.WEBHOOK;
   const normalContent = {
     textContent: '',
-    embedContent: 'There are no running instances.',
+    embedContent: '実行中のインスタンスはありません。',
     color: 1127128,
   };
   const abnormalContent = {
-    textContent: '@everyone Check It Now!',
-    embedContent: 'Some instances should be stopped!',
+    textContent: '@everyone EC2に関して今すぐ確認が必要です！',
+    embedContent: 'インスタンスが実行中です。',
     color: 14177041,
   };
   const requestHeader = {
