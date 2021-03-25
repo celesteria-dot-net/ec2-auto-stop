@@ -3,6 +3,7 @@ import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { Rule, Schedule } from '@aws-cdk/aws-events';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
+import { resolve } from 'path';
 
 // eslint-disable-next-line import/prefer-default-export
 export class Ec2AutoStopStack extends cdk.Stack {
@@ -24,7 +25,7 @@ export class Ec2AutoStopStack extends cdk.Stack {
     ];
 
     const stopFunc = new NodejsFunction(this, 'stop-func', {
-      entry: './ec2-auto-stop-stack.stop-func.ts'
+      entry: `${resolve(__dirname)}/ec2-auto-stop-stack.stop-func.ts`
     });
     policyStatements.forEach((policy) => {
       stopFunc.addToRolePolicy(policy);
