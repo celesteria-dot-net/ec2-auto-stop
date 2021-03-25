@@ -47,7 +47,7 @@ jobs:
     steps:
       - checkout
       - restore_yarn
-      - setup_remote_docker
+      - setup_remote_docker:
           version: 20.10.2
       - run:
           command: yarn test
@@ -58,7 +58,7 @@ jobs:
     steps:
       - checkout
       - restore_yarn
-      - setup_remote_docker
+      - setup_remote_docker:
           version: 20.10.2
       - run:
           name: Set env
