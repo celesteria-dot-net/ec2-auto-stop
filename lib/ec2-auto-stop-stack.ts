@@ -23,7 +23,9 @@ export class Ec2AutoStopStack extends cdk.Stack {
       }),
     ];
 
-    const stopFunc = new NodejsFunction(this, 'stop-func');
+    const stopFunc = new NodejsFunction(this, 'stop-func', {
+      entry: './ec2-auto-stop-stack.stop-func.ts'
+    });
     policyStatements.forEach((policy) => {
       stopFunc.addToRolePolicy(policy);
     });
