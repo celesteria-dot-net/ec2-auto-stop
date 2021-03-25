@@ -29,7 +29,7 @@ jobs:
       - restore_yarn
       - run:
           name: Install dependencies
-          command: yarn --check-files --frozen-lockfile --non-interactive
+          command: yarn install --check-files --frozen-lockfile --non-interactive
       - save_yarn
 
   format_and_lint:
