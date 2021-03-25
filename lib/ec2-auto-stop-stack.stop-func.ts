@@ -3,8 +3,7 @@ import {
   DescribeInstancesCommand,
   StopInstancesCommand,
 } from '@aws-sdk/client-ec2';
-import fetch from 'node-fetch';
-import { format } from 'date-fns';
+import postToDiscord from './discord';
 
 const client = new EC2Client({});
 
@@ -28,52 +27,6 @@ const stopInstances = async (instanceIds: string[]) => {
   await client.send(
     new StopInstancesCommand({ InstanceIds: instanceIds, Force: true }),
   );
-};
-
-const postToDiscord = async (instanceIds: string[]) => {
-  const webhook = process.env.WEBHOOK;
-  const normalContent = {
-    textContent: '',
-    embedContent: '実行中のインスタンスはありません。',
-    color: 1127128,
-  };
-  const abnormalContent = {
-    textContent: '@everyone EC2に関して今すぐ確認が必要です！',
-    embedContent: 'インスタンスが実行中です。',
-    color: 14177041,
-  };
-  const requestHeader = {
-    'User-Agent': 'curl/7.74.0',
-    'Content-Type': 'application/json',
-  };
-  const contents = instanceIds.length === 0 ? normalContent : abnormalContent;
-  const requestData = {
-    content: `[${format(new Date(), 'YYYY/MM/dd HH:mm:ss')}] ${contents.textContent}`,
-    embeds: [
-      {
-        title: 'EC2 Notifications',
-        url:
-          'https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:',
-        description: contents.embedContent,
-        color: contents.color,
-        fields: [
-          {
-            name: 'instance_ids',
-            value: instanceIds.length === 0 ? '[]' : instanceIds.join(', '),
-          },
-        ],
-        timestamp: new Date().toISOString(),
-      },
-    ],
-  };
-
-  const response = await fetch(webhook, {
-    method: 'post',
-    body: JSON.stringify(requestData),
-    headers: requestHeader,
-  });
-
-  return response;
 };
 
 // eslint-disable-next-line import/prefer-default-export

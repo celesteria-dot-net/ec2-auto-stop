@@ -1,0 +1,61 @@
+import { format } from 'date-fns';
+import fetch, { Response } from 'node-fetch';
+
+type webhookContents = {
+  text: string;
+  embed: string;
+  color: number;
+};
+
+const normalContents: webhookContents = {
+  text: '',
+  embed: '実行中のインスタンスはありません。',
+  color: 1127128,
+};
+
+const abnormalContents: webhookContents = {
+  text: '@everyone EC2に関して今すぐ確認が必要です！',
+  embed: 'インスタンスが実行中です。',
+  color: 14177041,
+};
+
+const requestHeader = {
+  'User-Agent': 'curl/7.74.0',
+  'Content-Type': 'application/json',
+};
+
+const postToDiscord = async (instanceIds: string[]): Promise<Response> => {
+  const webhook = process.env.WEBHOOK;
+  const contents = instanceIds.length === 0 ? normalContents : abnormalContents;
+  const requestData = {
+    username: 'EC2-Auto-Stop',
+    avatar_url: 'https://i.gyazo.com/5e6236efcc9c6d6f3bbf6253aa38ea31.png',
+    content: `[${format(new Date(), 'yyyy/MM/dd HH:mm:ss')}]\n${contents.text}`,
+    embeds: [
+      {
+        title: 'EC2 Notifications',
+        url:
+          'https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:',
+        description: contents.embed,
+        color: contents.color,
+        fields: [
+          {
+            name: 'instance_ids',
+            value: instanceIds.length === 0 ? '[]' : instanceIds.join(', '),
+          },
+        ],
+        timestamp: new Date().toISOString(),
+      },
+    ],
+  };
+
+  const response = await fetch(webhook, {
+    method: 'post',
+    body: JSON.stringify(requestData),
+    headers: requestHeader,
+  });
+
+  return response;
+};
+
+export default postToDiscord;
