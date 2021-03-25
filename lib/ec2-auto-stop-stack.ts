@@ -28,17 +28,11 @@ export class Ec2AutoStopStack extends cdk.Stack {
       stopFunc.addToRolePolicy(policy);
     });
 
-    const stopFuncTriggers = [
-      new Rule(this, 'stop-func-schedule', {
-        schedule: Schedule.cron({
-          minute: '30,40',
-          hour: '14',
-        }),
+    new Rule(this, 'stop-func-schedule', {
+      schedule: Schedule.cron({
+        minute: '30,40',
+        hour: '14',
       }),
-    ];
-
-    stopFuncTriggers.forEach((rule) =>
-      rule.addTarget(new LambdaFunction(stopFunc)),
-    );
+    }).addTarget(new LambdaFunction(stopFunc));
   }
 }
