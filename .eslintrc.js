@@ -63,7 +63,7 @@ module.exports = {
     ],
     'no-secrets/no-secrets': [
       'error',
-      { ignoreIdentifiers: ['http(s)?://([w-]+.)+[w-]+(/[w- ./?%&=]*)?'] },
+      { ignoreIdentifiers: ['https?://[\w/:%#\$&\?\(\)~\.=\+\-]+'] },
     ],
     'prefer-arrow/prefer-arrow-functions': [
       'error',
