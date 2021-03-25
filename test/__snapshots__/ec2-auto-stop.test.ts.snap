@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ec2AutoStopStack Snapshot Test stack 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParametersda3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519ArtifactHash4697F25C": Object {
+      "Description": "Artifact hash for asset \\"da3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519\\"",
+      "Type": "String",
+    },
+    "AssetParametersda3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519S3Bucket395A71AD": Object {
+      "Description": "S3 bucket for asset \\"da3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519\\"",
+      "Type": "String",
+    },
+    "AssetParametersda3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519S3VersionKey944084CA": Object {
+      "Description": "S3 key for asset version \\"da3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "stopfuncFD6C7B5F": Object {
+      "DependsOn": Array [
+        "stopfuncServiceRoleDefaultPolicyEE15E9C6",
+        "stopfuncServiceRole0C10635E",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersda3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519S3Bucket395A71AD",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersda3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519S3VersionKey944084CA",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersda3caf97e9eeeeaaa1dbedb76017b046a53f6a50cfb2378fb7b05c6dec83e519S3VersionKey944084CA",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "stopfuncServiceRole0C10635E",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "stopfuncServiceRole0C10635E": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "stopfuncServiceRoleDefaultPolicyEE15E9C6": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ec2:StopInstances",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:aws:ec2:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":instance/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": "ec2:DescribeInstances",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "stopfuncServiceRoleDefaultPolicyEE15E9C6",
+        "Roles": Array [
+          Object {
+            "Ref": "stopfuncServiceRole0C10635E",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "stopfuncschedule55A0A613": Object {
+      "Properties": Object {
+        "ScheduleExpression": "cron(30,40 14 * * ? *)",
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "stopfuncFD6C7B5F",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "stopfuncscheduleAllowEventRuleEc2AutoStopStackstopfunc55F42AFB39CCEFA0": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "stopfuncFD6C7B5F",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "stopfuncschedule55A0A613",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+  },
+}
+`;
