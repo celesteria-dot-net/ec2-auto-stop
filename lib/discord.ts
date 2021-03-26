@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
 import fetch, { Response } from 'node-fetch';
 
 type webhookContents = {
@@ -30,7 +31,7 @@ const postToDiscord = async (instanceIds: string[]): Promise<Response> => {
   const requestData = {
     username: 'EC2-Auto-Stop',
     avatar_url: 'https://i.gyazo.com/5e6236efcc9c6d6f3bbf6253aa38ea31.png',
-    content: `[${format(new Date(), 'yyyy/MM/dd HH:mm:ss')}]\n${contents.text}`,
+    content: `[${format(utcToZonedTime(new Date(), 'Asia/Tokyo'), 'yyyy/MM/dd HH:mm:ss')}]\n${contents.text}`,
     embeds: [
       {
         title: 'EC2 Notifications',
