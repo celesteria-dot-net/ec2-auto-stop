@@ -26,7 +26,7 @@ const requestHeader = {
 };
 
 const postToDiscord = async (instanceIds: string[]): Promise<Response> => {
-  const webhook = process.env.WEBHOOK;
+  const webhook = process.env.WEBHOOK_EC2;
   const contents = instanceIds.length === 0 ? normalContents : abnormalContents;
   const requestData = {
     username: 'EC2-Auto-Stop',
