@@ -64,9 +64,9 @@ module.exports = {
     'import/order': [
       'error',
       {
-        groups: ['builtin', 'external', 'internal'],
         alphabetize: {
           order: 'asc',
+          caseInsensitive: true
         },
       },
     ],
