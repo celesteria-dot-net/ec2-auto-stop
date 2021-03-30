@@ -61,6 +61,15 @@ module.exports = {
         ts: 'never',
       },
     ],
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal'],
+        alphabetize: {
+          order: 'asc',
+        },
+      },
+    ],
     'no-secrets/no-secrets': [
       'error',
       { ignoreIdentifiers: ['https?://[\w/:%#\$&\?\(\)~\.=\+\-]+'] },
