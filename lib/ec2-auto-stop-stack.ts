@@ -1,8 +1,8 @@
-import * as cdk from '@aws-cdk/core';
-import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { Rule, Schedule } from '@aws-cdk/aws-events';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
+import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
+import * as cdk from '@aws-cdk/core';
 
 // eslint-disable-next-line import/prefer-default-export
 export class Ec2AutoStopStack extends cdk.Stack {
