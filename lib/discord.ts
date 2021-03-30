@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
-import fetch, { Response } from 'node-fetch';
+import { Response } from 'node-fetch';
+import post from './httpWrapper';
 
 type webhookContents = {
   text: string;
@@ -18,11 +19,6 @@ const abnormalContents: webhookContents = {
   text: '@everyone EC2に関して今すぐ確認が必要です！',
   embed: 'インスタンスが実行中です。',
   color: 14177041,
-};
-
-const requestHeader = {
-  'User-Agent': 'curl/7.74.0',
-  'Content-Type': 'application/json',
 };
 
 const postToDiscord = async (instanceIds: string[]): Promise<Response> => {
@@ -53,13 +49,7 @@ const postToDiscord = async (instanceIds: string[]): Promise<Response> => {
     ],
   };
 
-  const response = await fetch(webhook, {
-    method: 'post',
-    body: JSON.stringify(requestData),
-    headers: requestHeader,
-  });
-
-  return response;
+  return post(webhook, requestData);
 };
 
 export default postToDiscord;
