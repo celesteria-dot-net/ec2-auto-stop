@@ -19,4 +19,6 @@ export const handler = async (): Promise<void> => {
         `[Webhook Error] StatusCode: ${response.status}, Status: ${response.statusText}`,
       );
   });
+
+  // TODO: SSHしてdockerを再起動
 };
