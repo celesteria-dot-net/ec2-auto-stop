@@ -23,7 +23,7 @@ const noRunningInstances: webhookContentsType = {
 
 const runningInstances: webhookContentsType = {
   ...defaultNegative,
-  embed: 'インスタンスが起動中です。',
+  embed: 'インスタンスが実行中です。',
 };
 
 const startedInstances: webhookContentsType = {
