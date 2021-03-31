@@ -23,10 +23,9 @@ export const handler = async (): Promise<{
       instanceIds.length === 0 ? noRunningInstances : runningInstances;
     const response = await postToDiscord(instanceIds, webhookMessage);
     if (response.status !== 204)
-      return {
-        isSuccessful: false,
-        error: `Webhook error: ${response.statusText}`,
-      };
+      throw new Error(
+        `[Webhook Error] StatusCode: ${response.status}, Status: ${response.statusText}`,
+      );
 
     return {
       isSuccessful: true,
