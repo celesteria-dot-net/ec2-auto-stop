@@ -1,4 +1,4 @@
-export interface webhookContentsType {
+export type webhookContentsType = {
   text: string;
   embed: string;
   color: number;
