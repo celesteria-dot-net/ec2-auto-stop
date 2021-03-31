@@ -11,7 +11,7 @@ const defaultPositive: webhookContentsType = {
 };
 
 const defaultNegative: webhookContentsType = {
-  text: '',
+  text: '@everyone EC2に関して今すぐ確認が必要です！',
   embed: '',
   color: 14177041,
 };
@@ -23,7 +23,6 @@ const noRunningInstances: webhookContentsType = {
 
 const runningInstances: webhookContentsType = {
   ...defaultNegative,
-  text: '@everyone EC2に関して今すぐ確認が必要です！',
   embed: 'インスタンスが実行中です。',
 };
 
