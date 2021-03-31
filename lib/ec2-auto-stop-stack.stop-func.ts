@@ -11,30 +11,16 @@ const filters: Filter[] = [
 ];
 
 // eslint-disable-next-line import/prefer-default-export
-export const handler = async (): Promise<{
-  isSuccessful: boolean;
-  error?: unknown;
-}> => {
-  try {
-    const instanceIds = await fetchInstanceIds(filters);
-    if (instanceIds.length !== 0) await stopInstances(instanceIds);
+export const handler = async (): Promise<void> => {
+  const instanceIds = await fetchInstanceIds(filters);
+  if (instanceIds.length !== 0) await stopInstances(instanceIds);
 
-    const webhookMessage =
-      instanceIds.length === 0 ? noRunningInstances : runningInstances;
-    await postToDiscord(instanceIds, webhookMessage).then((response) => {
-      if (response.status !== 204)
-        throw new Error(
-          `[Webhook Error] StatusCode: ${response.status}, Status: ${response.statusText}`,
-        );
-    });
-
-    return {
-      isSuccessful: true,
-    };
-  } catch (err) {
-    return {
-      isSuccessful: false,
-      error: err,
-    };
-  }
+  const webhookMessage =
+    instanceIds.length === 0 ? noRunningInstances : runningInstances;
+  await postToDiscord(instanceIds, webhookMessage).then((response) => {
+    if (response.status !== 204)
+      throw new Error(
+        `[Webhook Error] StatusCode: ${response.status}, Status: ${response.statusText}`,
+      );
+  });
 };
