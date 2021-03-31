@@ -27,7 +27,7 @@ const runningInstances: webhookContentsType = {
 };
 
 const startedInstances: webhookContentsType = {
-  ...defaultPositive,
+  ...defaultNegative,
   embed: 'インスタンスを実行しました。',
 };
 
