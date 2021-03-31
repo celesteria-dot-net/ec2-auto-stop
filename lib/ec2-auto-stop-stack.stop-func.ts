@@ -1,33 +1,11 @@
-import {
-  EC2Client,
-  DescribeInstancesCommand,
-  StopInstancesCommand,
-} from '@aws-sdk/client-ec2';
-import postToDiscord from './discord';
+import { Filter } from '@aws-sdk/client-ec2';
+import { noRunningInstances, runningInstances } from './domains/webhookContents';
+import postToDiscord from './util/discord';
+import { fetchInstanceIds, stopInstances } from './util/ec2';
 
-const client = new EC2Client({});
-
-const fetchInstanceIds = async () => {
-  const data = await client.send(
-    new DescribeInstancesCommand({
-      Filters: [
-        { Name: 'instance-state-name', Values: ['running', 'pending'] },
-      ],
-    }),
-  );
-
-  return (
-    data.Reservations?.flatMap((res) => res.Instances ?? []).flatMap(
-      (ins) => ins.InstanceId ?? [],
-    ) ?? []
-  );
-};
-
-const stopInstances = async (instanceIds: string[]) => {
-  await client.send(
-    new StopInstancesCommand({ InstanceIds: instanceIds, Force: true }),
-  );
-};
+const filters: Filter[] = [
+  { Name: 'instance-state-name', Values: ['running', 'pending'] },
+]
 
 // eslint-disable-next-line import/prefer-default-export
 export const handler = async (): Promise<{
@@ -35,10 +13,11 @@ export const handler = async (): Promise<{
   error?: unknown;
 }> => {
   try {
-    const instanceIds = await fetchInstanceIds();
+    const instanceIds = await fetchInstanceIds(filters);
     if (instanceIds.length !== 0) await stopInstances(instanceIds);
 
-    const response = await postToDiscord(instanceIds);
+    const webhookMessage = instanceIds.length === 0 ? noRunningInstances : runningInstances
+    const response = await postToDiscord(instanceIds, webhookMessage);
     if (response.status !== 204)
       return {
         isSuccessful: false,
