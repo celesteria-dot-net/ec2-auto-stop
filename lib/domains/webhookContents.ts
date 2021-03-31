@@ -31,4 +31,9 @@ const startedInstances: webhookContentsType = {
   embed: 'インスタンスを実行しました。',
 };
 
-export { noRunningInstances, runningInstances, startedInstances };
+const noInstancesToRun: webhookContentsType = {
+  ...defaultPositive,
+  embed: '実行できるインスタンスはありません。'
+}
+
+export { noRunningInstances, runningInstances, startedInstances, noInstancesToRun };
