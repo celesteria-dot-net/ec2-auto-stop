@@ -5,7 +5,6 @@ import { webhookContentsType } from '../domains/webhookContents';
 import post from './httpWrapper';
 
 const postToDiscord = async (instanceIds: string[], contents: webhookContentsType): Promise<Response> => {
-  const webhook = process.env.WEBHOOK_EC2;
   const requestData = {
     username: 'EC2-Auto-Stop',
     avatar_url: 'https://i.gyazo.com/5e6236efcc9c6d6f3bbf6253aa38ea31.png',
@@ -31,7 +30,7 @@ const postToDiscord = async (instanceIds: string[], contents: webhookContentsTyp
     ],
   };
 
-  return post(webhook, requestData);
+  return post(process.env.WEBHOOK_EC2, requestData);
 };
 
 export default postToDiscord;
