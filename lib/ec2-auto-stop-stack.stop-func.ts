@@ -1,11 +1,14 @@
 import { Filter } from '@aws-sdk/client-ec2';
-import { noRunningInstances, runningInstances } from './domains/webhookContents';
+import {
+  noRunningInstances,
+  runningInstances,
+} from './domains/webhookContents';
 import postToDiscord from './util/discord';
 import { fetchInstanceIds, stopInstances } from './util/ec2';
 
 const filters: Filter[] = [
   { Name: 'instance-state-name', Values: ['running', 'pending'] },
-]
+];
 
 // eslint-disable-next-line import/prefer-default-export
 export const handler = async (): Promise<{
@@ -16,7 +19,8 @@ export const handler = async (): Promise<{
     const instanceIds = await fetchInstanceIds(filters);
     if (instanceIds.length !== 0) await stopInstances(instanceIds);
 
-    const webhookMessage = instanceIds.length === 0 ? noRunningInstances : runningInstances
+    const webhookMessage =
+      instanceIds.length === 0 ? noRunningInstances : runningInstances;
     const response = await postToDiscord(instanceIds, webhookMessage);
     if (response.status !== 204)
       return {

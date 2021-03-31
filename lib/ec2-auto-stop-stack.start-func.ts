@@ -18,7 +18,8 @@ export const handler = async (): Promise<{
     const instanceIds = await fetchInstanceIds(filters);
     if (instanceIds.length !== 0) await startInstances(instanceIds);
 
-    const webhookMessage = instanceIds.length === 0 ? noInstancesToRun : startedInstances
+    const webhookMessage =
+      instanceIds.length === 0 ? noInstancesToRun : startedInstances;
     const response = await postToDiscord(instanceIds, webhookMessage);
     if (response.status !== 204)
       return {
