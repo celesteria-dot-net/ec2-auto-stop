@@ -9,7 +9,10 @@ export class Ec2AutoStopStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const policyStatements = [
+    const stopFunc = new NodejsFunction(this, 'stop-func');
+    const startFunc = new NodejsFunction(this, 'start-func');
+
+    [
       new PolicyStatement({
         resources: [
           `arn:aws:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:instance/*`,
@@ -21,11 +24,23 @@ export class Ec2AutoStopStack extends cdk.Stack {
         resources: ['*'],
         actions: ['ec2:DescribeInstances'],
       }),
-    ];
-
-    const stopFunc = new NodejsFunction(this, 'stop-func');
-    policyStatements.forEach((policy) => {
+    ].forEach((policy) => {
       stopFunc.addToRolePolicy(policy);
+    });
+
+    [
+      new PolicyStatement({
+        resources: [
+          `arn:aws:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:instance/*`,
+        ],
+        actions: ['ec2:StartInstances'],
+      }),
+      new PolicyStatement({
+        resources: ['*'],
+        actions: ['ec2:DescribeInstances'],
+      }),
+    ].forEach((policy) => {
+      startFunc.addToRolePolicy(policy);
     });
 
     new Rule(this, 'stop-func-schedule', {
@@ -34,5 +49,12 @@ export class Ec2AutoStopStack extends cdk.Stack {
         hour: '14',
       }),
     }).addTarget(new LambdaFunction(stopFunc));
+
+    new Rule(this, 'start-func-schedule', {
+      schedule: Schedule.cron({
+        minute: '0',
+        hour: '0',
+      }),
+    }).addTarget(new LambdaFunction(startFunc));
   }
 }
