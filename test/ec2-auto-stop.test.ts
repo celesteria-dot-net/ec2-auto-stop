@@ -54,11 +54,46 @@ describe('Ec2AutoStopStack Fine-Grained Test', () => {
         Version: '2012-10-17',
       },
     });
+    expect(stack).toHaveResource('AWS::IAM::Policy', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: 'ec2:StartInstances',
+            Effect: 'Allow',
+            Resource: {
+              'Fn::Join': [
+                '',
+                [
+                  'arn:aws:ec2:',
+                  {
+                    Ref: 'AWS::Region',
+                  },
+                  ':',
+                  {
+                    Ref: 'AWS::AccountId',
+                  },
+                  ':instance/*',
+                ],
+              ],
+            },
+          },
+          {
+            Action: 'ec2:DescribeInstances',
+            Effect: 'Allow',
+            Resource: '*',
+          },
+        ],
+        Version: '2012-10-17',
+      },
+    });
   });
 
   test('Events Rule', () => {
     expect(stack).toHaveResource('AWS::Events::Rule', {
       ScheduleExpression: 'cron(30,40 14 * * ? *)',
+    });
+    expect(stack).toHaveResource('AWS::Events::Rule', {
+      ScheduleExpression: 'cron(0 0 * * ? *)',
     });
   });
 });
