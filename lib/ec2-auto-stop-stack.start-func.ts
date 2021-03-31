@@ -1,6 +1,7 @@
 import { Filter } from '@aws-sdk/client-ec2';
 import { startedInstances, noInstancesToRun } from './domains/webhookContents';
 import postToDiscord from './util/discord';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { fetchInstanceIds, startInstances } from './util/ec2';
 
 const filters: Filter[] = [{ Name: 'tag-key', Values: ['bot_container'] }];
@@ -16,11 +17,12 @@ export const handler = async (): Promise<{
 
     const webhookMessage =
       instanceIds.length === 0 ? noInstancesToRun : startedInstances;
-    const response = await postToDiscord(instanceIds, webhookMessage);
-    if (response.status !== 204)
-      throw new Error(
-        `[Webhook Error] StatusCode: ${response.status}, Status: ${response.statusText}`,
-      );
+    await postToDiscord(instanceIds, webhookMessage).then((response) => {
+      if (response.status !== 204)
+        throw new Error(
+          `[Webhook Error] StatusCode: ${response.status}, Status: ${response.statusText}`,
+        );
+    });
 
     return {
       isSuccessful: true,
