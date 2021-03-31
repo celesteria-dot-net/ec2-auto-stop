@@ -3,11 +3,7 @@ import { startedInstances, noInstancesToRun } from './domains/webhookContents';
 import postToDiscord from './util/discord';
 import { fetchInstanceIds, startInstances } from './util/ec2';
 
-const tagNames = ['bot_container']
-
-const filters: Filter[] = [
-  { Name: 'tag-key', Values: tagNames },
-]
+const filters: Filter[] = [{ Name: 'tag-key', Values: ['bot_container'] }];
 
 // eslint-disable-next-line import/prefer-default-export
 export const handler = async (): Promise<{
