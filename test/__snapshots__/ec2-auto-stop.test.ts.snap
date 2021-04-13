@@ -3,28 +3,28 @@
 exports[`Ec2AutoStopStack Snapshot Test stack 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters15fc913ad931e0c656caff7fefc17e30da4d6019e55008850f3eb198f84dc003ArtifactHash0BF50793": Object {
-      "Description": "Artifact hash for asset \\"15fc913ad931e0c656caff7fefc17e30da4d6019e55008850f3eb198f84dc003\\"",
+    "AssetParameters5632cf559668da3634825953820a8e3b2a1fde50814fdc1426ad2d3077a12eeeArtifactHash06C430E0": Object {
+      "Description": "Artifact hash for asset \\"5632cf559668da3634825953820a8e3b2a1fde50814fdc1426ad2d3077a12eee\\"",
       "Type": "String",
     },
-    "AssetParameters15fc913ad931e0c656caff7fefc17e30da4d6019e55008850f3eb198f84dc003S3Bucket1C312B0E": Object {
-      "Description": "S3 bucket for asset \\"15fc913ad931e0c656caff7fefc17e30da4d6019e55008850f3eb198f84dc003\\"",
+    "AssetParameters5632cf559668da3634825953820a8e3b2a1fde50814fdc1426ad2d3077a12eeeS3BucketD650C450": Object {
+      "Description": "S3 bucket for asset \\"5632cf559668da3634825953820a8e3b2a1fde50814fdc1426ad2d3077a12eee\\"",
       "Type": "String",
     },
-    "AssetParameters15fc913ad931e0c656caff7fefc17e30da4d6019e55008850f3eb198f84dc003S3VersionKey1705613E": Object {
-      "Description": "S3 key for asset version \\"15fc913ad931e0c656caff7fefc17e30da4d6019e55008850f3eb198f84dc003\\"",
+    "AssetParameters5632cf559668da3634825953820a8e3b2a1fde50814fdc1426ad2d3077a12eeeS3VersionKeyF2F02B29": Object {
+      "Description": "S3 key for asset version \\"5632cf559668da3634825953820a8e3b2a1fde50814fdc1426ad2d3077a12eee\\"",
       "Type": "String",
     },
-    "AssetParameters960b17f2fdf51c7896a5bc163d685f991849b1a7edce76e96a2a5e7ebb9edda2ArtifactHash649E0227": Object {
-      "Description": "Artifact hash for asset \\"960b17f2fdf51c7896a5bc163d685f991849b1a7edce76e96a2a5e7ebb9edda2\\"",
+    "AssetParameterseb41bb5928a5270afc4b4f1d4798fe48dea3b712bba55bc0b73af61bdcfc4b86ArtifactHashD9F9A821": Object {
+      "Description": "Artifact hash for asset \\"eb41bb5928a5270afc4b4f1d4798fe48dea3b712bba55bc0b73af61bdcfc4b86\\"",
       "Type": "String",
     },
-    "AssetParameters960b17f2fdf51c7896a5bc163d685f991849b1a7edce76e96a2a5e7ebb9edda2S3BucketDA82F7AB": Object {
-      "Description": "S3 bucket for asset \\"960b17f2fdf51c7896a5bc163d685f991849b1a7edce76e96a2a5e7ebb9edda2\\"",
+    "AssetParameterseb41bb5928a5270afc4b4f1d4798fe48dea3b712bba55bc0b73af61bdcfc4b86S3Bucket9ACFAFA1": Object {
+      "Description": "S3 bucket for asset \\"eb41bb5928a5270afc4b4f1d4798fe48dea3b712bba55bc0b73af61bdcfc4b86\\"",
       "Type": "String",
     },
-    "AssetParameters960b17f2fdf51c7896a5bc163d685f991849b1a7edce76e96a2a5e7ebb9edda2S3VersionKey2445C90F": Object {
-      "Description": "S3 key for asset version \\"960b17f2fdf51c7896a5bc163d685f991849b1a7edce76e96a2a5e7ebb9edda2\\"",
+    "AssetParameterseb41bb5928a5270afc4b4f1d4798fe48dea3b712bba55bc0b73af61bdcfc4b86S3VersionKey7FDEE70D": Object {
+      "Description": "S3 key for asset version \\"eb41bb5928a5270afc4b4f1d4798fe48dea3b712bba55bc0b73af61bdcfc4b86\\"",
       "Type": "String",
     },
   },
@@ -37,7 +37,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters960b17f2fdf51c7896a5bc163d685f991849b1a7edce76e96a2a5e7ebb9edda2S3BucketDA82F7AB",
+            "Ref": "AssetParameters5632cf559668da3634825953820a8e3b2a1fde50814fdc1426ad2d3077a12eeeS3BucketD650C450",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -50,7 +50,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters960b17f2fdf51c7896a5bc163d685f991849b1a7edce76e96a2a5e7ebb9edda2S3VersionKey2445C90F",
+                          "Ref": "AssetParameters5632cf559668da3634825953820a8e3b2a1fde50814fdc1426ad2d3077a12eeeS3VersionKeyF2F02B29",
                         },
                       ],
                     },
@@ -63,7 +63,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters960b17f2fdf51c7896a5bc163d685f991849b1a7edce76e96a2a5e7ebb9edda2S3VersionKey2445C90F",
+                          "Ref": "AssetParameters5632cf559668da3634825953820a8e3b2a1fde50814fdc1426ad2d3077a12eeeS3VersionKeyF2F02B29",
                         },
                       ],
                     },
@@ -76,6 +76,7 @@ Object {
         "Environment": Object {
           "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DISCORD_TOKEN": "https://discord.com/api/webhooks/822729931967561748/fkV3rZ_d0-6ufBuoe5VzzmbyRbDiiLFQCanbqn6-sc5kcsgchBHPmPxd7akpCamkFEVY",
           },
         },
         "Handler": "index.handler",
@@ -206,7 +207,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters15fc913ad931e0c656caff7fefc17e30da4d6019e55008850f3eb198f84dc003S3Bucket1C312B0E",
+            "Ref": "AssetParameterseb41bb5928a5270afc4b4f1d4798fe48dea3b712bba55bc0b73af61bdcfc4b86S3Bucket9ACFAFA1",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -219,7 +220,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters15fc913ad931e0c656caff7fefc17e30da4d6019e55008850f3eb198f84dc003S3VersionKey1705613E",
+                          "Ref": "AssetParameterseb41bb5928a5270afc4b4f1d4798fe48dea3b712bba55bc0b73af61bdcfc4b86S3VersionKey7FDEE70D",
                         },
                       ],
                     },
@@ -232,7 +233,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters15fc913ad931e0c656caff7fefc17e30da4d6019e55008850f3eb198f84dc003S3VersionKey1705613E",
+                          "Ref": "AssetParameterseb41bb5928a5270afc4b4f1d4798fe48dea3b712bba55bc0b73af61bdcfc4b86S3VersionKey7FDEE70D",
                         },
                       ],
                     },
@@ -245,6 +246,7 @@ Object {
         "Environment": Object {
           "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DISCORD_TOKEN": "https://discord.com/api/webhooks/822729931967561748/fkV3rZ_d0-6ufBuoe5VzzmbyRbDiiLFQCanbqn6-sc5kcsgchBHPmPxd7akpCamkFEVY",
           },
         },
         "Handler": "index.handler",
