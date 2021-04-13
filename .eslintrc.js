@@ -19,7 +19,7 @@ module.exports = {
     sourceType: 'module',
     tsConfigRootDir: __dirname,
   },
-  plugins: ['@typescript-eslint', 'import', 'no-secrets', 'prefer-arrow'],
+  plugins: ['@typescript-eslint', 'import', 'prefer-arrow'],
   root: true,
   rules: {
     'lines-between-class-members': [
@@ -61,9 +61,14 @@ module.exports = {
         ts: 'never',
       },
     ],
-    'no-secrets/no-secrets': [
+    'import/order': [
       'error',
-      { ignoreIdentifiers: ['https?://[\w/:%#\$&\?\(\)~\.=\+\-]+'] },
+      {
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
     ],
     'prefer-arrow/prefer-arrow-functions': [
       'error',
