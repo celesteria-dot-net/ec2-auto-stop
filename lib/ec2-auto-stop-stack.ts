@@ -15,6 +15,11 @@ export class Ec2AutoStopStack extends cdk.Stack {
         DISCORD_TOKEN: env.DISCORD_TOKEN
       }
     });
+    const startFunc = new NodejsFunction(this, 'start-func', {
+      environment: {
+        DISCORD_TOKEN: env.DISCORD_TOKEN
+      }
+    });
 
     [
       new PolicyStatement({
@@ -32,11 +37,33 @@ export class Ec2AutoStopStack extends cdk.Stack {
       stopFunc.addToRolePolicy(policy);
     });
 
+    [
+      new PolicyStatement({
+        resources: [
+          `arn:aws:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:instance/*`,
+        ],
+        actions: ['ec2:StartInstances'],
+      }),
+      new PolicyStatement({
+        resources: ['*'],
+        actions: ['ec2:DescribeInstances'],
+      }),
+    ].forEach((policy) => {
+      startFunc.addToRolePolicy(policy);
+    });
+
     new Rule(this, 'stop-func-schedule', {
       schedule: Schedule.cron({
         minute: '30,40',
         hour: '14',
       }),
     }).addTarget(new LambdaFunction(stopFunc));
+
+    new Rule(this, 'start-func-schedule', {
+      schedule: Schedule.cron({
+        minute: '0',
+        hour: '0',
+      }),
+    }).addTarget(new LambdaFunction(startFunc));
   }
 }
