@@ -50,6 +50,7 @@
     "discord-webhook-node": "^1.1.8",
     "esbuild": "0",
     "node-fetch": "^2.6.1",
-    "source-map-support": "^0.5.16"
+    "source-map-support": "^0.5.16",
+    "ts-dotenv": "^0.8.3"
   }
 }
