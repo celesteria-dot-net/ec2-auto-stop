@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import '@aws-cdk/assert/jest';
 import { SynthUtils } from '@aws-cdk/assert';
 import * as cdk from '@aws-cdk/core';
@@ -12,7 +15,7 @@ describe('Ec2AutoStopStack Snapshot Test', () => {
     if (resource?.Properties?.Code) resource.Properties.Code = {};
     if (resource?.Properties?.Environment) resource.Properties.Environment = {};
   });
-  
+
   test('stack', () => {
     expect(template).toMatchSnapshot();
   });
