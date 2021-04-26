@@ -11,7 +11,7 @@ describe('Ec2AutoStopStack Snapshot Test', () => {
   Object.values(template.Resources).forEach((resource: any) => {
     if (resource?.Properties?.Code) resource.Properties.Code = {}:
     if (resource?.Properties?.Environments) resource.Properties.Environments = {};
-  }
+  });
   
   test('stack', () => {
     expect(template).toMatchSnapshot();
