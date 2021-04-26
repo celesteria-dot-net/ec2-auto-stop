@@ -9,7 +9,7 @@ describe('Ec2AutoStopStack Snapshot Test', () => {
   const template = SynthUtils.toCloudFormation(stack);
   template.Parameters = {};
   Object.values(template.Resources).forEach((resource: any) => {
-    if (resource?.Properties?.Code) resource.Properties.Code = {}:
+    if (resource?.Properties?.Code) resource.Properties.Code = {};
     if (resource?.Properties?.Environments) resource.Properties.Environments = {};
   });
   
