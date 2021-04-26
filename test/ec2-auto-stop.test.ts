@@ -6,8 +6,15 @@ import * as Ec2AutoStop from '../lib/ec2-auto-stop-stack';
 describe('Ec2AutoStopStack Snapshot Test', () => {
   const app = new cdk.App();
   const stack = new Ec2AutoStop.Ec2AutoStopStack(app, 'Ec2AutoStopStack');
+  const template = SynthUtils.toCloudFormation(stack);
+  template.Parameters = {};
+  Object.values(template.Resources).forEach((resource: any) => {
+    if (resource?.Properties?.Code) resource.Properties.Code = {}:
+    if (resource?.Properties?.Environments) resource.Properties.Environments = {};
+  }
+  
   test('stack', () => {
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
+    expect(template).toMatchSnapshot();
   });
 });
 
