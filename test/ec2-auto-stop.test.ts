@@ -10,7 +10,7 @@ describe('Ec2AutoStopStack Snapshot Test', () => {
   template.Parameters = {};
   Object.values(template.Resources).forEach((resource: any) => {
     if (resource?.Properties?.Code) resource.Properties.Code = {};
-    if (resource?.Properties?.Environments) resource.Properties.Environments = {};
+    if (resource?.Properties?.Environment) resource.Properties.Environment = {};
   });
   
   test('stack', () => {
